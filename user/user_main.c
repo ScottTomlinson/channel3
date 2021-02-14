@@ -79,6 +79,19 @@ void ICACHE_FLASH_ATTR DrawFrame(  )
 
 	switch( showstate )
 	{
+	case 12:  // State that's for stonks
+	{
+		const char * s = "THIS SCREEN IS FOR STONKS\n\nhttp://github.com/ScottTomlinson/\nchannel3\n";
+
+		i = ets_strlen( s );
+		if( i > framessostate ) i = framessostate;
+		ets_memcpy( lastct, s, i );
+		lastct[i] = 0;
+		CNFGDrawText( lastct, 3 );
+		if( framessostate > 500 ) newstate = 1;
+		break;
+	
+	}
 	case 11:  // State that's not in the normal set.  Just displays boxes.
 	{
 		for( i = 0; i < 16; i++ )
@@ -277,7 +290,7 @@ void ICACHE_FLASH_ATTR DrawFrame(  )
 			ctx += ets_sprintf( ctx, "NM: %d.%d.%d.%d\n", (ipi.netmask.addr>>0)&0xff,(ipi.netmask.addr>>8)&0xff,(ipi.netmask.addr>>16)&0xff,(ipi.netmask.addr>>24)&0xff );
 			ctx += ets_sprintf( ctx, "GW: %d.%d.%d.%d\nESP Online\n", (ipi.gw.addr>>0)&0xff,(ipi.gw.addr>>8)&0xff,(ipi.gw.addr>>16)&0xff,(ipi.gw.addr>>24)&0xff );
 			showtemp++;
-			if( showtemp == 30 ) newstate = 1;
+			if( showtemp == 30 ) newstate = 12;
 		}
 		break;
 	}
